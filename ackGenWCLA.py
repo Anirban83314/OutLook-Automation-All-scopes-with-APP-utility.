@@ -1,24 +1,24 @@
 import win32com.client as win32
 
-import FPSAlertMonitor
+import MasterAlertManager
 
 
 
 outlook = win32.Dispatch ( 'outlook.application' )
 mail = outlook.CreateItem ( 0 )
-mail.To = 'GXSOMWIPRODSMonitoringservice@shell.com'
-mail.Cc = 'anirban.a.ghosh@shell.com'
-mail.Bcc = 'debashis.biswas@shell.com'
-mail.Subject = 'Acknowledgement || Re: ' + FPSAlertMonitor.CTM_Mail_subject
+mail.To = 'recepients'
+mail.Cc = 'recepients'
+mail.Bcc = 'recepients'
+mail.Subject = 'Acknowledgement || Re: ' + MasterAlertManager._Mail_subject
 
-# attachment = (os.path.expanduser(os.getenv('USERPROFILE')) + '\\Desktop\\AUTOMATION\\Logs\\loadddf.txt')
+# attachment = (os.path.expanduser(os.getenv('USERPROFILE')) + '\\Path\\to\\the\\Attachment\\')
 # mail.Attachments.Add(attachment)
 
-# F = open(os.path.expanduser(os.getenv('USERPROFILE')) + '\\Desktop\\AUTOMATION\\Logs\\loadddf.txt')
+# F = open(os.path.expanduser(os.getenv('USERPROFILE')) + '\\Path\\to\\the\\Attachment\\')
 # line = F.read()
 
-(mail.body) = 'Due to cyclic Job, it will be executed successfully in the next Execution Cycle.' + (
-FPSAlertMonitor.CTM_Mail_body)
+(mail.body) = 'Small_description.' + (
+MasterAlertManager._Mail_body)
 
 mail.send
 
