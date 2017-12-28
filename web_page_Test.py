@@ -9,7 +9,7 @@ File_NAME = (CurrentTime + "WebMod.png")
 
 driver = webdriver.Chrome('D:\\Python36-32\\chromedriver.exe')
 
-driver.get("https://www.fps.shell.com/Comprice/(S(l00klqffzfavy05bha2nxu30))/default.aspx?ReturnUrl=%2fcomprice")
+driver.get("##Desired URL to be checked ")
 driver.maximize_window()
 
 FilePath = 'C:\\Users\\Debashis.Biswas\\Desktop\\WebModules\\'
