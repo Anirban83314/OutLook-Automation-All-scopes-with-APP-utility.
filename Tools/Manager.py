@@ -47,23 +47,33 @@ def make_topmost(self):
     self.attributes("-topmost", 1)
     self.attributes("-topmost", 0)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Button Area defined~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
-def Services():
+def Jobs():
     print('Services')
     os.chdir('C:\\Program Files\\Microsoft Office\\root\\Office16\\')
     os.startfile(r"C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE")
 
-b = Button(ManagerTool, text="OutLook", command=Services, padx=6)
-b.place(anchor=SW)
-b.pack(side=LEFT)
+b = Button(ManagerTool, text="Jobs", command=Jobs, padx=6).grid(row=0, column=0, sticky='NW')
+
+def Mails():
+    print('Job details ')
+
+b = Button(ManagerTool, text="Mails", command=Mails, padx=6).grid(row=0, column=1, sticky='NW')
+
+def status():
+    print('Rpinting Process status & job status on the banner window!!!')
+
+b = Button(ManagerTool, text="Status", command=status, padx=6).grid(row=0, column=2, sticky='NW')
+
+def process_status():
+    print('Showing only running process status detasil. Else nothing will return as per job scheduling. ')
+
+b = Button(ManagerTool, text="Process Status", command=process_status, padx=6).grid(row=0, column=3, sticky='NW')
 
 def Exit():
     print('EXIT')
     ManagerTool.destroy()
 
-b = Button(ManagerTool, text="Exit", command=Exit, padx=3)
-b.place(anchor=SW)
-b.pack(side=LEFT)
-
+b = Button(ManagerTool, text="Exit", command=Exit, padx=3).grid(row=0, column=4, sticky='NW')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menubar Commands~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 def log():
@@ -100,14 +110,11 @@ ManagerTool.configure(menu=menubar)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Menu Bar items~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Pane window define here~~~~~~~~~~~~~~~~~~~~~~~~~~~##
-m=PanedWindow(orient=VERTICAL)
-m.pack(fill=BOTH,expand=1)
+m=PanedWindow(orient=VERTICAL).grid(row=1, column=0, sticky='EW')
 
-top = Label(m, text="Top Pane")
-m.add(top)
+top = Label(m, text="Top Pane").grid(row=1, column=0)
 
-buttom = Label(m, text="Buttom pane")
-m.add(buttom)
+buttom = Label(m, text="Buttom pane").grid(row=5, column=0, sticky='EW')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Pane Window here~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 ManagerTool.mainloop()
