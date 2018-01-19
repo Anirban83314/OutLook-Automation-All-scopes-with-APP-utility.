@@ -1,3 +1,10 @@
+__project__ = 'OSADOL.'
+__author__ = 'Jeys_Ozzius.'
+__descript__ = "Copyright (c) 2017 Anirban Ghosh(Anirban83314) & Debashis Biswas(deb991)."
+__URL__ = 'https://github.com/Anirban83314/OutLook-Automation-All-scopes-with-APP-utility.'
+__NB__ = 'For more information, please see github page & all commit details.'
+__CipherSig__ = 'This project & all associate files are encrypted under PBEncryption cryptography. Another details will be available at the end of this pgogram.'
+
 import os
 import tkinter
 from tkinter import messagebox, font, Frame, Scrollbar, SW, N, E, NE, SE, W, S, NW, EW, PanedWindow, Tk
@@ -76,9 +83,9 @@ def Exit():
 b = Button(ManagerTool, text="Exit", command=Exit, padx=3).grid(row=0, column=4, sticky='NW')
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menubar Commands~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
-def log():
-    print('Log command has not defined yet.')
-
+def assending_a2z():
+    print('Showing logs from assending order. But as per Current program. !!!!')
+    print ( 'Log command has not defined yet.' )
 
 def user():
     print('User detals will be shown here. ')
@@ -96,16 +103,28 @@ def share():
     print('Share Logs & app location along with last run status with time stamp to avoide confusion. ')
 
 
+
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menubar commands finished here~~~~~~~~~~~~~~~~~~~~~~##
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Bar items defined here~~~~~~~~~~~~~~~~~~~~~~~~##
 
 menubar = Menu(ManagerTool)
-menubar.add_command(label='Log', command=log)
+
+#logmenu = Menu(menubar)
+#logmenu.add_command(label='A-Z view', command=assending_a2z)
+#menubar.add_cascade(label='Log', Menu=logmenu)
+
+
 menubar.add_command(label='User', command=user)
 menubar.add_command(label='Seheduler', command=scheduler)
 menubar.add_command(label='Apps', command=apps)
 menubar.add_command(label='Share', command=share)
+
+
+
+
+
 ManagerTool.configure(menu=menubar)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Menu Bar items~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
