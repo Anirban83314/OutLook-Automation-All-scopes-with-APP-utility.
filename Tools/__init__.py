@@ -1,5 +1,3 @@
-from tkinter.scrolledtext import ScrolledText
-
 __project__ = 'OSADOL.'
 __author__ = 'Jeys_Ozzius.'
 __descript__ = "Copyright (c) 2017 Anirban Ghosh(Anirban83314) & Debashis Biswas(deb991)."
@@ -9,9 +7,11 @@ __CipherSig__ = 'This project & all associate files are encrypted under PBEncryp
 
 import os
 import tkinter
-from tkinter import messagebox , font , Frame , Scrollbar , SW , N , E , NE , SE , W , S , NW , EW , PanedWindow , Tk, scrolledtext
+from tkinter import messagebox , font , Frame , Scrollbar , SW , N , E , NE , SE , W , S , NW , EW , PanedWindow , Tk, scrolledtext, ttk
+from tkinter.messagebox import showinfo
+from tkinter.scrolledtext import ScrolledText
 from subprocess import *
-import platform
+import platform, easygui, socket
 
 try:
     from tkinter import *
@@ -45,11 +45,6 @@ def __init__(self):
     self.make_topmost ( )
     self.protocol ( "WM_DELETE_WINDOW" , self.on_exit )
 
-def on_Exit(self):
-    """When you click to exit, this function is called"""
-    if messagebox.askyesno ( "Exit" , "Do you want to quit the application?" ):
-        self.destroy()
-
 def make_topmost(self):
     """Makes this window the topmost window"""
     self.lift ( )
@@ -64,32 +59,28 @@ def Jobs():
 
 b = Button ( ManagerTool , text="Jobs" , command=Jobs , padx=4 , fg="#00A7fb" , bg='#000000' ).grid ( row=0, column=0, sticky='NW' )
 
-
-
-def Mails(self):
+def Mails():
     print ( 'Job details ' )
 
 b = Button ( ManagerTool , text="Mails" , command=Mails , padx=4 , fg="#00A7fb" , bg='#000000' ).grid ( row=0 ,column=1, sticky='NW' )
 
-def status(self):
+def status():
     print ( 'Rpinting Process status & job status on the banner window!!!' )
 
 b = Button ( ManagerTool , text="Status" , command=status , padx=4 , fg="#00A7fb" , bg='#000000' ).grid ( row=0, column=2 ,sticky='NW' )
 
 
-def process_status(self):
+def process_status():
     print ( 'Showing only running process status detasil. Else nothing will return as per job scheduling. ' )
 
 b = Button ( ManagerTool , text="Process Status" , command=process_status , padx=4 , fg="#00A7fb" ,
                  bg='#000000' ).grid ( row=0 , column=3 , sticky='NW' )
 
-def Exit(self):
+def Exit():
     print ( 'EXIT' )
-    ManagerTool.destroy ( )
+    ManagerTool.destroy()
 
-b = Button ( ManagerTool , text="Exit" , command=Exit , padx=4 , fg="#00AAAA" , bg='#000000' ).grid ( row=0 ,
-                                                                                                          column=4 ,
-                                                                                                          sticky='NW' )
+b = Button ( ManagerTool , text="Exit" , command=Exit , padx=4 , fg="#00AAAA" , bg='#000000' ).grid ( row=0, column=4, sticky='NW' )
 
 def Test(self):
     print ( 'Testing Manager during BETA stage!!!' )
@@ -97,28 +88,53 @@ def Test(self):
     print ( platform.machine ( ) )
     print ( platform.uname ( ) )
 
+def popUp_create():
+    win = tkinter.Toplevel()
+    win.wm_title('Window')
+
+    l = tkinter.Label(win, text="Input")
+    l.grid(row=0, column=0)
+
+    b = ttk.Button(win, text="Okay", command=win.destroy)
+    b.grid(row=1, column=0)
+
+def popUp_showinfo_system():
+    System_info=[platform.system(),platform.processor(), platform.uname(), platform.node(), platform.architecture()];
+    showinfo("<<~~~~Test Window~~~~>>", System_info)
+
+def popUp_showinfo_network():
+    print('To be display some infos')
+    Network_Info={'IP': socket.gethostbyname(socket.gethostname()), 'MAC / HW Add': socket.gethostbyaddr(socket.gethostname())}
+    showinfo("<<~~~~Test Window~~~~>>", Network_Info)
+
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menubar Commands~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
-def assending_a2z(self):
+def assending_a2z():
     print ( 'Showing logs from assending order. But as per Current program. !!!!' )
     print ( 'Log command has not defined yet.' )
 
-def user(self):
+def user():
     print ( 'User detals will be shown here. ' )
 
-def scheduler(self):
+def scheduler():
     print ( 'Job scheduler is being showing here .' )
 
-def apps(self):
+def apps():
     print ( 'App details. which will show running scripts & there locations. but not read or write availablity. ' )
 
-def share(self):
+def share():
     print ( 'Share Logs & app location along with last run status with time stamp to avoide confusion. ' )
 
-def Help(self):
-    print ( open ( 'https://github.com/Anirban83314/OutLook-Automation-All-scopes-with-APP-utility.' ) )
+def Help():
+    easygui.msgbox('https://github.com/Anirban83314/OutLook-Automation-All-scopes-with-APP-utility.')
 
-def About(self):
-    print ( open ('https://github.com/Anirban83314/OutLook-Automation-All-scopes-with-APP-utility./blob/master/LICENSE' ) )
+def About():
+    easygui.msgbox('https://github.com/Anirban83314/OutLook-Automation-All-scopes-with-APP-utility./blob/master/LICENSE')
+
+def Apptest():
+    ttk.Frame(command=popUp_showinfo_system())
+
+def NetworkTest():
+    ttk.Frame(command=popUp_showinfo_network())
 
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menubar commands finished here~~~~~~~~~~~~~~~~~~~~~~##
 
@@ -152,6 +168,11 @@ Sharemenu = Menu ( menubar , foreground="#00A7fb" , background='#000000' )
 Sharemenu.add_command ( label='Share Log details' , command=share )
 menubar.add_cascade ( label='Share' , menu=Sharemenu )
 
+testmenu = Menu(menubar , foreground="#00A7fb" , background='#000000' )
+testmenu.add_command(label='Normal testing', command=Apptest)
+testmenu.add_command(label='Netowork Test', command=NetworkTest)
+menubar.add_cascade(label='Test', menu=testmenu)
+
 HelpAbout = Menu ( menubar , foreground="#00A7fb" , background='#000000' )
 HelpAbout.add_command ( label='Help' , command=Help )
 HelpAbout.add_command ( label='About' , command=About )
@@ -166,8 +187,6 @@ m = PanedWindow ( orient=VERTICAL ).grid ( row=0 , column=0 , sticky=W )
 top = Label ( m , text="Prime Jobs" ).grid ( row=1 , column=3 , sticky=NW )
 
 buttom = Label ( m , text="All Jobs List" ).grid ( row=2 , column=3 , sticky=W )
-
-
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Pane Window here~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
