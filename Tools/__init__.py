@@ -11,7 +11,7 @@ from tkinter import messagebox , font , Frame , Scrollbar , SW , N , E , NE , SE
 from tkinter.messagebox import showinfo
 from tkinter.scrolledtext import ScrolledText
 from subprocess import *
-import platform, easygui, socket
+import platform, socket, easygui
 
 try:
     from tkinter import *
@@ -33,7 +33,7 @@ ManagerTool.geometry ( '%dx%d+%d+%d' % (width , hight , x , y) )
 ManagerTool.resizable ( 1366 , 768 )
 ManagerTool.configure ( background='white' )
 ManagerTool.lift ( )
-ManagerTool.title ( 'OSADOL MANAGER' )
+ManagerTool.title ( 'OSADOL MANAGER :: @' + platform.node() )
 ManagerTool.rowconfigure ( 0 , weight=1 )
 ManagerTool.rowconfigure ( 1 , weight=1 )
 
@@ -81,6 +81,42 @@ def Exit():
     ManagerTool.destroy()
 
 b = Button ( ManagerTool , text="Exit" , command=Exit , padx=4 , fg="#00AAAA" , bg='#000000' ).grid ( row=0, column=4, sticky='NW' )
+
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Defining Jobs on the mail window & all others associates~~~~~~~~~~~~~~~~~~~~~~~~~~~##
+
+
+def  Permit_Vision():
+    print('Initiaiting Permit Vision operation on every WednesDay Night @ 12:45 AM ')
+    exec(open("D:\OutLook Mail Automation\PermitVisionMailAck.py").read())
+    print('Operation Terminated !!')
+
+b = Button(ManagerTool, text="Permit Vision", command=Permit_Vision, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=0, sticky=tkinter.W+tkinter.S)
+
+
+def Resource_Lock():
+    print ( 'Initiaiting Resource Lock operation for both 12 PM & 9 PM daily.  ' )
+    exec ( open ( "D:\OutLook Mail Automation\MailAckRsLc.py" ).read ( ) )
+    print ( 'Operation Terminated !!' )
+
+b = Button(ManagerTool, text="Resource Lock", command=Resource_Lock, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=1, sticky=tkinter.W+tkinter.S)
+
+def wrk_archive():
+    print('Archiving WRK files to the archive directory. ')
+    #exec()
+    print('Script is being configured !!')
+
+b = Button(ManagerTool, text="WRK Archive", command=Resource_Lock, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=2, sticky=tkinter.W+tkinter.S)
+
+def xhub_manual_monitoring():
+    print ( 'When XHub FMB getting so high count mails, we can reduce the pressure using this script. ' )
+    exec(open('D:\OutLook Mail Automation\XHubAutomation.py').read())
+    print ( 'Operation terminated on demand !!' )
+
+b = Button(ManagerTool, text="XHub Monitoring", command=xhub_manual_monitoring, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=3, sticky=tkinter.W+tkinter.S)
+
+
+
 
 def Test(self):
     print ( 'Testing Manager during BETA stage!!!' )
@@ -140,7 +176,7 @@ def NetworkTest():
 
     ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Menu Bar items defined here~~~~~~~~~~~~~~~~~~~~~~~~##
 
-menubar = Menu ( ManagerTool , foreground="#00A7fb" , background='#000000' )
+menubar = Menu ( ManagerTool , foreground="#00A7fb" , background='#000000', activebackground='#004c99', activeforeground='white' )
 
 logmenu = Menu ( menubar , foreground="#00A7fb" , background='#000000' )
 logmenu.add_command ( label='A-Z view' , command=assending_a2z )
@@ -178,16 +214,11 @@ HelpAbout.add_command ( label='Help' , command=Help )
 HelpAbout.add_command ( label='About' , command=About )
 menubar.add_cascade ( label='Help' , menu=HelpAbout )
 
-ManagerTool.configure ( menu=menubar )
+ManagerTool.configure (menu=menubar)
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Menu Bar items~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Pane window define here~~~~~~~~~~~~~~~~~~~~~~~~~~~##
-m = PanedWindow ( orient=VERTICAL ).grid ( row=0 , column=0 , sticky=W )
 
-top = Label ( m , text="Prime Jobs" ).grid ( row=1 , column=3 , sticky=NW )
 
-buttom = Label ( m , text="All Jobs List" ).grid ( row=2 , column=3 , sticky=W )
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~End of Pane Window here~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 
 ManagerTool.mainloop()
