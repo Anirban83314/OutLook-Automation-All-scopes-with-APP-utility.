@@ -1,4 +1,5 @@
 import os, sys, platform, easygui
+import tkinter
 from tkinter import *
 from tkinter import messagebox, font, Frame, Scrollbar, SW, N, E, NE, SE, W, S, NW, EW, PanedWindow, Tk, scrolledtext, ttk
 from subprocess import *
@@ -72,10 +73,34 @@ Tab.add(Tab3, text='Status')
 Tab4 = ttk.Frame(Tab)
 Tab.add(Tab4, text='Process Status')
 
+def popUp_create():
+    win = tkinter.Toplevel()
+    win.wm_title('Window')
+
+    l = tkinter.Label(win, text="Input")
+    l.grid(row=0, column=0)
+
+    b = ttk.Button(win, text="Okay", command=win.destroy)
+    b.grid(row=1, column=0)
+
 #Tab5
 Tab5 = ttk.Frame(Tab)
 Tab.add(Tab5, text='++')
 
+def popUp_add_Job():
+    Label(text='Job Name').grid(row=10, column=5)
+    Label(text='Enter script PATH ~\\..').grid(row=13, column=5)
+
+    entry1=Entry(AppTool)
+    entry2=Entry(AppTool)
+
+    entry1.grid(row=10, column=10)
+    entry2.grid(row=13, column=10)
+
+b = Button(Tab5, text="Add Jobs", command=popUp_add_Job, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=3, sticky='WS')
+
+Button(AppTool, text="Confirm").grid(row=15, column=8, sticky=W, pady=4)
+Button(AppTool, text="Abort").grid(row=15, column=10, sticky=W, pady=4)
 
 appPane = PanedWindow(orient=HORIZONTAL)
 #appPane.pack()
