@@ -100,12 +100,7 @@ b = Button(Tab1, text="XHub Monitoring", command=xhub_manual_monitoring, padx=4,
 
 
 ttk.Separator(Tab1).place(x=0, y=40, relwidth=1)
-
-labelframe = LabelFrame(Tab1, text="All Jobs")
-labelframe.grid()
-
-
-
+ttk.Label(Tab1, text="All Jobs").place(x=0, y=42)
 
 #Tab2
 Tab2 = ttk.Frame(Tab)
@@ -118,6 +113,12 @@ Tab.add(Tab3, text='Status')
 #Tab4
 Tab4 = ttk.Frame(Tab)
 Tab.add(Tab4, text='Process Status')
+
+ttk.Label(Tab4, text="Current All Processes of this System").place(x=0, y=5)
+ttk.Separator(Tab4).place(x=0, y=25, relwidth=1)
+
+ProcessFile = open('D:\\LOG\\taskLog.txt', 'r')
+ttk.Label(Tab4, text=[ProcessFile.read()]).place(x=0, y=27)
 
 #Tab5
 Tab5 = ttk.Frame(Tab)
