@@ -115,10 +115,22 @@ Tab4 = ttk.Frame(Tab)
 Tab.add(Tab4, text='Process Status')
 
 ttk.Label(Tab4, text="Current All Processes of this System").place(x=0, y=5)
-ttk.Separator(Tab4).place(x=0, y=25, relwidth=1)
+ttk.Separator(Tab4).place(x=0, y=25, relwidth=15)
 
-ProcessFile = open('D:\\LOG\\taskLog.txt', 'r')
-ttk.Label(Tab4, text=[ProcessFile.read()]).place(x=0, y=27)
+scrollbar = Scrollbar(Tab4)
+
+#ttk.Label(Tab4, yscrollcommand=scrollbar.set, text=[ProcessFile.read()]).place(x=0, y=27)
+
+canvas = Canvas(Tab4, height=768, width=1366, yscrollcommand=scrollbar.set)
+
+ProcssFile = open('D:\\LOG\\taskLog.txt', 'r')
+
+canvas.create_text(1000, 1000, text=[ProcssFile.read()], tags='text')
+
+scrollbar.config(command=canvas.yview)
+scrollbar.pack(side = RIGHT, fill = Y )
+
+canvas.pack(side=LEFT, expand=True)
 
 #Tab5
 Tab5 = ttk.Frame(Tab)
@@ -151,6 +163,9 @@ logmenu.add_command(label='Exit', command=Exit)
 menubar.add_cascade ( label='Log' , menu=logmenu )
 
 AppTool.configure (menu=menubar)
+
+AppTool.update()
+canvas.config(scrollregion=canvas.bbox("all"))
 
 
 AppTool.mainloop()
