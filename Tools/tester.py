@@ -133,13 +133,21 @@ scrollbar.pack(side = RIGHT, fill = Y )
 canvas.pack(side=LEFT, expand=True)
 
 #Tab5
+
 Tab5 = ttk.Frame(Tab)
-Tab.add(Tab5, text='++')
+Tab.add(Tab5, text="App Logs")
+
+ttk.Label(Tab5, text="All Jobs related to SSMS & Control M based, can be found here!!!").place(x=0, y=5)
+ttk.Separator(Tab5).place(x=0, y=25, relwidth=15)
+
+#Tab6
+Tab6 = ttk.Frame(Tab)
+Tab.add(Tab6, text='++')
 
 def add_job():
     ttk.Frame(command=popUp_add_Job())
 
-b = Button(Tab5, text="Add Jobs", command=add_job, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=3, sticky='WS')
+b = Button(Tab6, text="Add Jobs", command=add_job, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=3, sticky='WS')
 
 #appPane = PanedWindow(orient=HORIZONTAL)
 #appPane.pack()
@@ -147,7 +155,7 @@ b = Button(Tab5, text="Add Jobs", command=add_job, padx=4, pady=2, fg="#00AAAA" 
 #top = Label(appPane, text='TOP PANE')
 #appPane.add(top, stretch="always")
 
-ttk.Separator(Tab5).place(x=0, y=160, relwidth=1)
+ttk.Separator(Tab6).place(x=0, y=160, relwidth=1)
 
 def logLoc():
     print('Opening Log location!!!')
