@@ -22,6 +22,7 @@ AppTool.resizable(1366, 768)
 AppTool.configure(background='grey')
 AppTool.title('OSADOL Manager :: @' + platform.node())
 
+
 row = 0
 while row<50:
     AppTool.rowconfigure(row, weight=1)
@@ -32,6 +33,13 @@ Tab = ttk.Notebook(AppTool)
 Tab.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NEWS')
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Commands Declear ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+def disable_event():
+    pass
+
+def screenshot():
+
+    print("Nothing configured yet !!!")
 
 def popUp_create():
     win = tkinter.Toplevel()
@@ -58,6 +66,7 @@ def popUp_add_Job():
 
     Button ( Tab5 , text="Confirm" ).grid ( row=15 , column=8 , sticky=W , pady=4 )
     Button ( Tab5 , text="Abort" ).grid ( row=15 , column=10 , sticky=W , pady=4 )
+
 
 def Exit():
     print ( 'EXIT' )
@@ -119,8 +128,6 @@ ttk.Separator(Tab4).place(x=0, y=25, relwidth=15)
 
 scrollbar = Scrollbar(Tab4)
 
-#ttk.Label(Tab4, yscrollcommand=scrollbar.set, text=[ProcessFile.read()]).place(x=0, y=27)
-
 canvas = Canvas(Tab4, height=768, width=1366, yscrollcommand=scrollbar.set)
 
 ProcssFile = open('D:\\LOG\\taskLog.txt', 'r')
@@ -138,7 +145,31 @@ Tab5 = ttk.Frame(Tab)
 Tab.add(Tab5, text="App Logs")
 
 ttk.Label(Tab5, text="All Jobs related to SSMS & Control M based, can be found here!!!").place(x=0, y=5)
-ttk.Separator(Tab5).place(x=0, y=25, relwidth=15)
+ttk.Separator(Tab5).place(x=0, y=25, relwidth=1)
+
+opis_data = open('D:\\LOG\\OPIS_data.txt', 'r')
+
+def OPIS_Data_NewWindow():
+    window = tkinter.S
+    window.wm_title ( 'App Details' )
+
+
+
+    l = tkinter.Label ( window , text=[opis_data.read()] )
+    l.grid ( row=0 , column=0 )
+
+    b = ttk.Button ( window , text="Take Screenshot" , command=screenshot )
+    b.grid ( row=10 , column=0 )
+
+    b = ttk.Button ( window , text="Close" , command=window.destroy )
+    b.grid ( row=10 , column=1 )
+
+    scrollbar = Scrollbar ( window )
+    scrollbar.config ( command=l.yview )
+    scrollbar.pack ( side=RIGHT , fill=Y )
+
+
+b = Button(Tab5, text="View OPIS Data", command=OPIS_Data_NewWindow, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=3, column=1, sticky='NW')
 
 #Tab6
 Tab6 = ttk.Frame(Tab)
@@ -149,13 +180,8 @@ def add_job():
 
 b = Button(Tab6, text="Add Jobs", command=add_job, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=1, column=3, sticky='WS')
 
-#appPane = PanedWindow(orient=HORIZONTAL)
-#appPane.pack()
-
-#top = Label(appPane, text='TOP PANE')
-#appPane.add(top, stretch="always")
-
 ttk.Separator(Tab6).place(x=0, y=160, relwidth=1)
+
 
 def logLoc():
     print('Opening Log location!!!')
