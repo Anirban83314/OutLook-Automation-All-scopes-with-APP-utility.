@@ -1,3 +1,4 @@
+import sys
 import os, sys, platform, easygui
 import tkinter
 from tkinter import *
@@ -6,6 +7,8 @@ from subprocess import *
 from threading import *
 import subprocess
 from subprocess import *
+import subprocess
+import ssmsOps.Load_OPIS_Spot_Load_Platts_Autopricing
 
 
 try:
@@ -147,29 +150,57 @@ Tab.add(Tab5, text="App Logs")
 ttk.Label(Tab5, text="All Jobs related to SSMS & Control M based, can be found here!!!").place(x=0, y=5)
 ttk.Separator(Tab5).place(x=0, y=25, relwidth=1)
 
-opis_data = open('D:\\LOG\\OPIS_data.txt', 'r')
 
-def OPIS_Data_NewWindow():
-    window = tkinter.S
-    window.wm_title ( 'App Details' )
+def opisIssue():
+    OPIS_Autopricing_script = "D:\OutLook Mail Automation\ssmsOps\Load_OPIS_Spot_Load_Platts_Autopricing.py"
+
+    opisDataOutput = sys.stdout
+    run_opis = subprocess.call(OPIS_Autopricing_script, shell=True)
+    OPIS_DATA = open ( 'D:\\LOG\\OPIS_data.txt' , 'w' )
+    sys.stdout = opisDataOutput
 
 
+    OPIS_DATA_eval = tkinter.Toplevel ()
+    OPIS_DATA_eval.title ( 'OPIS_DATA_eval' )
 
-    l = tkinter.Label ( window , text=[opis_data.read()] )
-    l.grid ( row=0 , column=0 )
+    scrollbar = Scrollbar (OPIS_DATA_eval)
+    opis_canvas = Canvas(OPIS_DATA_eval, height=1000, width=1000, yscrollcommand=scrollbar.set)
 
-    b = ttk.Button ( window , text="Take Screenshot" , command=screenshot )
-    b.grid ( row=10 , column=0 )
+    opis_canvas.create_text(0, 1, text=[OPIS_DATA.read ( )], tags='text')
 
-    b = ttk.Button ( window , text="Close" , command=window.destroy )
-    b.grid ( row=10 , column=1 )
-
-    scrollbar = Scrollbar ( window )
-    scrollbar.config ( command=l.yview )
+    scrollbar.config ( command=opis_canvas.yview )
     scrollbar.pack ( side=RIGHT , fill=Y )
 
+    opis_canvas.pack(side=LEFT, expand=True)
 
-b = Button(Tab5, text="View OPIS Data", command=OPIS_Data_NewWindow, padx=4, pady=2, fg="#00AAAA" , bg='#000000' ).grid ( row=3, column=1, sticky='NW')
+
+    def recheck():
+        opisDataOutput = sys.stdout
+        run_opis = subprocess.call ( "ssmsOps.Load_OPIS_Spot_Load_Platts_Autopricing" , shell=True )
+        OPIS_DATA = open ( 'D:\\LOG\\OPIS_data.txt' , 'w' )
+        sys.stdout = opisDataOutput
+
+        #print('Recheck query for accurate info!!')
+
+
+    b = Button(OPIS_DATA_eval, command=recheck, padx=0, pady=0, fg="#00AAAA" , bg='#000000')
+    b.place(x=3, y=0)
+
+
+######
+######
+######
+######
+#Now find a sol for scrollable window for DB output.
+#Find better resolution for OUTPUT checking details.
+######
+######
+######
+######
+
+b = Button(Tab5, text="View OPIS Data", command=opisIssue, padx=4, pady=2, fg="#00AAAA" , bg='#000000' )
+b.place(x=0, y=27)
+#.grid ( row=10, column=1)
 
 #Tab6
 Tab6 = ttk.Frame(Tab)
