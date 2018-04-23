@@ -150,28 +150,33 @@ Tab.add(Tab5, text="App Logs")
 ttk.Label(Tab5, text="All Jobs related to SSMS & Control M based, can be found here!!!").place(x=0, y=5)
 ttk.Separator(Tab5).place(x=0, y=25, relwidth=1)
 
+scrollbar = Scrollbar(Tab5)
+
 
 def opisIssue():
     OPIS_Autopricing_script = "D:\OutLook Mail Automation\ssmsOps\Load_OPIS_Spot_Load_Platts_Autopricing.py"
 
-    opisDataOutput = sys.stdout
-    run_opis = subprocess.call(OPIS_Autopricing_script, shell=True)
-    OPIS_DATA = open ( 'D:\\LOG\\OPIS_data.txt' , 'w' )
-    sys.stdout = opisDataOutput
+    with open('D:\\LOG\\OPIS_data.txt', 'a+') as OpisLogFile:
+        OpisLogFile.write('{}'.format(subprocess.call(OPIS_Autopricing_script, shell=True)))
+        OpisLogFile.close ( )
+
+    OpisLogFileData = open('D:\\LOG\\OPIS_data.txt')
 
 
-    OPIS_DATA_eval = tkinter.Toplevel ()
-    OPIS_DATA_eval.title ( 'OPIS_DATA_eval' )
+    OPISAutopricingWindow = tkinter.Toplevel()
+    OPISAutopricingWindow.title('>>>> OPIS Autopricing Data Output <<<<')
+
+    OPIS_DATA_eval = Canvas(OPISAutopricingWindow, height=768, width=1366)
+    OPIS_DATA_eval.create_text(1000, 1000, text=[OpisLogFileData], tags='text')
 
     scrollbar = Scrollbar (OPIS_DATA_eval)
     opis_canvas = Canvas(OPIS_DATA_eval, height=1000, width=1000, yscrollcommand=scrollbar.set)
-
-    opis_canvas.create_text(0, 1, text=[OPIS_DATA.read ( )], tags='text')
 
     scrollbar.config ( command=opis_canvas.yview )
     scrollbar.pack ( side=RIGHT , fill=Y )
 
     opis_canvas.pack(side=LEFT, expand=True)
+
 
 
     def recheck():
@@ -183,8 +188,8 @@ def opisIssue():
         #print('Recheck query for accurate info!!')
 
 
-    b = Button(OPIS_DATA_eval, command=recheck, padx=0, pady=0, fg="#00AAAA" , bg='#000000')
-    b.place(x=3, y=0)
+        b = Button(OPIS_DATA_eval, command=recheck, padx=0, pady=0, fg="#00AAAA" , bg='#000000')
+        b.place(x=3, y=0)
 
 
 ######
@@ -200,7 +205,6 @@ def opisIssue():
 
 b = Button(Tab5, text="View OPIS Data", command=opisIssue, padx=4, pady=2, fg="#00AAAA" , bg='#000000' )
 b.place(x=0, y=27)
-#.grid ( row=10, column=1)
 
 #Tab6
 Tab6 = ttk.Frame(Tab)
